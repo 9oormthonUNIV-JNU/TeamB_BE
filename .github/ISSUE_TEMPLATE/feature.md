@@ -1,5 +1,5 @@
 ---
-name: 'Feature '
+name: Feature
 about: 기능 개발 사항을 작성해주세요!
 title: ''
 labels: ''
