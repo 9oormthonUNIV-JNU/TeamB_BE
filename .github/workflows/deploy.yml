@@ -15,7 +15,7 @@ env:
   AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: gifty-s3-bucket
   CODE_DEPLOY_APPLICATION_NAME: gifty-codedeploy
-  CODE_DEPLOY_DEPLOYMNET_GROUP_NAME: gifty-codedeploy-deployment-group
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: gifty-codedeploy-deployment-group
 
 permissions:
   contents: read
