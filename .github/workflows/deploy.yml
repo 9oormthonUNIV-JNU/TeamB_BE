@@ -46,7 +46,7 @@ jobs:
         run: |
           cd ./src/main/resources
           touch ./application-prod.yml
-          echo "${{ secrets.APPLICATION_PROD_PROPERTIES }}" >> ./application-prod.properties
+          echo "${{ secrets.APPLICATION_PROD_PROPERTIES }}" >> ./application-prod.yml
 
       # (4) Gradle build
       - name: Grant execute permission for gradlew
