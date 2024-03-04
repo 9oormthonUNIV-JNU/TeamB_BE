@@ -1,4 +1,4 @@
-package com.example.gifty.dto;
+package com.example.gifty.dto.user;
 
 import com.example.gifty.entity.User;
 import jakarta.validation.constraints.NotEmpty;
