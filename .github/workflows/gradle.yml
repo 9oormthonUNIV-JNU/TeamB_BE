@@ -36,7 +36,7 @@ jobs:
     - name: Generate application-prod.yml
       run: |
         cd ./src/main/resources
-        touch ./application-local.yml
+        touch ./application-prod.yml
         echo "${{ secrets.APPLICATION_PROD_PROPERTIES }}" >> ./application-prod.properties
 
     - name: Grant execute permission for gradlew
