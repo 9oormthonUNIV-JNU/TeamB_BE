@@ -19,7 +19,8 @@ public enum ErrorCode {
     FORBIDDEN_USER(HttpStatus.FORBIDDEN, "인증되지 않은 사용자입니다."),
 
     // 404 Not Found 찾을 수 없음
-    USER_NOT_EXIST(HttpStatus.NOT_FOUND, "존재하지 않는 사용자입니다.");
+    USER_NOT_EXIST(HttpStatus.NOT_FOUND, "존재하지 않는 사용자입니다."),
+    PRODUCT_NOT_EXIST(HttpStatus.NOT_FOUND, "존재하지 않는 상품입니다.");
 
     // 409 Conflict 충돌
 

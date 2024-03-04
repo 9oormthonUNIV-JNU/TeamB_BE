@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "friends")
-public class Friend extends BaseTimeEntity {
+@Table(name = "supports")
+public class Support extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -21,23 +21,15 @@ public class Friend extends BaseTimeEntity {
     private User user;
 
     @Column
-    private long kakaoId;
+    private long amount;
 
     @Column
-    private String kakaoUuid;
-
-    @Column
-    private String nickname;
-
-    @Column
-    private String profileImage;
+    private String message;
 
     @Builder
-    public Friend(User user, long kakaoId, String kakaoUuid, String nickname, String profileImage) {
+    public Support(User user, long amount, String message) {
         this.user = user;
-        this.kakaoId = kakaoId;
-        this.kakaoUuid = kakaoUuid;
-        this.nickname = nickname;
-        this.profileImage = profileImage;
+        this.amount = amount;
+        this.message = message;
     }
 }
