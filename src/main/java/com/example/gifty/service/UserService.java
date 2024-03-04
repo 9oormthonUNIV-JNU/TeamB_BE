@@ -1,12 +1,14 @@
 package com.example.gifty.service;
 
+import com.example.gifty.entity.Friend;
 import com.example.gifty.security.JWTTokenProvider;
-import com.example.gifty.dto.UserRequestDTO;
-import com.example.gifty.dto.UserResponseDTO;
+import com.example.gifty.dto.user.UserRequestDTO;
+import com.example.gifty.dto.user.UserResponseDTO;
 import com.example.gifty.entity.User;
 import com.example.gifty.exception.ErrorCode;
 import com.example.gifty.exception.UserNotExistException;
 import com.example.gifty.repository.UserJPARepository;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -19,7 +21,9 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -83,6 +87,9 @@ public class UserService {
         }
 
         UserResponseDTO.KakaoLoginDTO responseDTO = login(kakaoUserDTO);
+
+//        getUserFriendList(kakaoUserDTO, tokenInfo);
+
         return responseDTO;
     }
 
@@ -196,60 +203,56 @@ public class UserService {
         return jwtTokenProvider.createToken(user);
     }
 
-//    public void getUserFriendList(HashMap<String, String> tokenInfo) {
-//        String requestURL = userFriendListUri;
-//
-//        try {
-//            URL url = new URL(requestURL);
-//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//
-//            connection.setRequestMethod("GET");
-//            connection.setDoOutput(true);
-//            connection.setRequestProperty("Authorization", "Bearer " + tokenInfo.get("access_token"));
-//
-//            int responseCode = connection.getResponseCode();
-//
-//            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//            String line = "";
-//            StringBuilder result = new StringBuilder();
-//
-//            while ((line = br.readLine()) != null) {
-//                result.append(line);
-//            }
-//            System.out.println("response body: " + result);
-//
-//            JsonElement element = JsonParser.parseString(result.toString());
-//
-//            System.out.println(element.getAsJsonObject().get("elements"));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }public void getUserFriendList(HashMap<String, String> tokenInfo) {
-//        String requestURL = userFriendListUri;
-//
-//        try {
-//            URL url = new URL(requestURL);
-//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//
-//            connection.setRequestMethod("GET");
-//            connection.setDoOutput(true);
-//            connection.setRequestProperty("Authorization", "Bearer " + tokenInfo.get("access_token"));
-//
-//            int responseCode = connection.getResponseCode();
-//
-//            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//            String line = "";
-//            StringBuilder result = new StringBuilder();
-//
-//            while ((line = br.readLine()) != null) {
-//                result.append(line);
-//            }
-//            System.out.println("response body: " + result);
-//
-//            JsonElement element = JsonParser.parseString(result.toString());
-//
-//            System.out.println(element.getAsJsonObject().get("elements"));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+
+    private List<Friend> getUserFriendList(UserRequestDTO.KakaoLoginDTO requestDTO, HashMap<String, String> tokenInfo) {
+        User user = userJPARepository.findByEmail(requestDTO.getEmail())
+                .orElseThrow(() -> new UserNotExistException(ErrorCode.USER_NOT_EXIST));
+        List<Friend> friendList = new ArrayList<>();
+
+        String requestURL = userFriendListUri;
+
+        try {
+            URL url = new URL(requestURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            connection.setRequestMethod("GET");
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Authorization", "Bearer " + tokenInfo.get("access_token"));
+
+            int responseCode = connection.getResponseCode();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line = "";
+            StringBuilder result = new StringBuilder();
+
+            while ((line = br.readLine()) != null) {
+                result.append(line);
+            }
+            System.out.println("response body: " + result);
+
+            JsonElement element = JsonParser.parseString(result.toString());
+
+            JsonArray elements = (JsonArray) element.getAsJsonObject().get("elements");
+            for (Object e : elements) {
+                JsonObject obj = (JsonObject) e;
+                Long kakaoId = obj.get("id").getAsLong();
+                String kakaoUuid = obj.get("uuid").getAsString();
+                String nickname = obj.get("profile_nickname").getAsString();
+                String profileImage = obj.get("profile_thumbnail_image").getAsString();
+
+                Friend newFriend = Friend.builder()
+                        .user(user)
+                        .kakaoId(kakaoId)
+                        .kakaoUuid(kakaoUuid)
+                        .nickname(nickname)
+                        .profileImage(profileImage)
+                        .build();
+                friendList.add(newFriend);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return friendList;
+    }
 }
