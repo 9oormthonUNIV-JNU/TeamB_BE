@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "friends")
-public class Friend extends BaseTimeEntity {
+@Table(name = "wishlists")
+public class WishList extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -20,24 +20,17 @@ public class Friend extends BaseTimeEntity {
     @JoinColumn(name = "userId")
     private User user;
 
-    @Column
-    private long kakaoId;
+    @ManyToOne
+    @JoinColumn(name = "productId")
+    private Product product;
 
     @Column
-    private String kakaoUuid;
-
-    @Column
-    private String nickname;
-
-    @Column
-    private String profileImage;
+    private boolean isDeleted;
 
     @Builder
-    public Friend(User user, long kakaoId, String kakaoUuid, String nickname, String profileImage) {
+    public WishList(User user, Product product, boolean isDeleted) {
         this.user = user;
-        this.kakaoId = kakaoId;
-        this.kakaoUuid = kakaoUuid;
-        this.nickname = nickname;
-        this.profileImage = profileImage;
+        this.product = product;
+        this.isDeleted = isDeleted;
     }
 }
