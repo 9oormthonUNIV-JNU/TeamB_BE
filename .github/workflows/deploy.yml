@@ -53,7 +53,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build with Gradle Wrapper
-        run: ./gradlew build
+        run: ./gradlew clean build
 
       # (5) Configure AWS credentials
       - name: Configure AWS credentials
