@@ -1,4 +1,4 @@
-package com.example.gifty;
+package com.example.gifty.security;
 
 import com.example.gifty.security.*;
 import lombok.RequiredArgsConstructor;
