@@ -20,13 +20,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(e.getErrorCode().getHttpStatus()).body(ApiResponse.error(e.getMessage()));
     }
 
-//    @ExceptionHandler(NoSuchElementFoundException.class)
-//    public ResponseEntity<?> handleNoSuchElementFoundException(NoSuchElementFoundException exception) {
-//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
-//
-//        ErrorResponse errorResponse = ErrorResponse.builder()
-//                .code("Item Not Found")
-//                .message(exception.getMessage()).build();
-//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
-//    }
+    @ExceptionHandler(ProductNotExistException.class)
+    public ResponseEntity<?> handleUserNotExistException(ProductNotExistException e) {
+        return ResponseEntity.status(e.getErrorCode().getHttpStatus()).body(ApiResponse.error(e.getMessage()));
+    }
 }
