@@ -1,6 +1,6 @@
 package com.example.gifty.security;
 
-import com.example.gifty.dto.UserResponseDTO;
+import com.example.gifty.dto.user.UserResponseDTO;
 import com.example.gifty.entity.User;
 import com.example.gifty.exception.ErrorCode;
 import com.example.gifty.exception.ExpiredJWTTokenException;
@@ -9,21 +9,11 @@ import com.example.gifty.exception.UnsupportedJWTTokenException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 @Component
 public class JWTTokenProvider {
