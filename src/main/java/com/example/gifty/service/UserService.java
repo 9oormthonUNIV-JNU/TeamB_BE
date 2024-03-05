@@ -58,24 +58,24 @@ public class UserService {
 
     private final JWTTokenProvider jwtTokenProvider;
 
-    public RedirectView getKakaoAuthorizeCode() throws Exception {
-//        URI uri = UriComponentsBuilder
-//                .fromUriString("https://kauth.kakao.com")
-//                .path("/oauth/authorize")
-//                .queryParam("client_id", kakaoRestApiKey)
-//                .queryParam("redirect_uri", kakaoRedirectUri)
-//                .queryParam("response_type", "code")
-//                .queryParam("scope", "profile_nickname,profile_image,account_email,friends")
-//                .build()
-//                .toUri();
-
-//        RestTemplate restTemplate = new RestTemplate();
-//        String response = restTemplate.getForObject(uri, String.class);
-//        return response;
-
-        String uri = authorizeUri + "?client_id=" + kakaoRestApiKey + "&redirect_uri=" + redirectUri + "&response_type=code&scope=" + authorizeScope;
-        return new RedirectView(uri);
-    }
+//    public RedirectView getKakaoAuthorizeCode() throws Exception {
+////        URI uri = UriComponentsBuilder
+////                .fromUriString("https://kauth.kakao.com")
+////                .path("/oauth/authorize")
+////                .queryParam("client_id", kakaoRestApiKey)
+////                .queryParam("redirect_uri", kakaoRedirectUri)
+////                .queryParam("response_type", "code")
+////                .queryParam("scope", "profile_nickname,profile_image,account_email,friends")
+////                .build()
+////                .toUri();
+//
+////        RestTemplate restTemplate = new RestTemplate();
+////        String response = restTemplate.getForObject(uri, String.class);
+////        return response;
+//
+//        String uri = authorizeUri + "?client_id=" + kakaoRestApiKey + "&redirect_uri=" + redirectUri + "&response_type=code&scope=" + authorizeScope;
+//        return new RedirectView(uri);
+//    }
 
     public UserResponseDTO.KakaoLoginDTO kakaoLogin(String code) throws Exception {
         HashMap<String, String> tokenInfo = getKakaoToken(code);

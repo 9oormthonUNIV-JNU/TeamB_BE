@@ -19,11 +19,11 @@ import org.springframework.web.servlet.view.RedirectView;
 public class UserRestController {
     private final UserService userService;
 
-    @Operation(summary = "카카오 로그인", description = "카카오 로그인")
-    @GetMapping("/users/login") // 테스트를 위해 GetMapping 사용. 이후에는 PostMapping으로 변경해야 함.
-    public RedirectView kakaoAuthorizeCode() throws Exception {
-        return userService.getKakaoAuthorizeCode();
-    }
+//    @Operation(summary = "카카오 로그인", description = "카카오 로그인")
+//    @GetMapping("/users/login") // 테스트를 위해 GetMapping 사용. 이후에는 PostMapping으로 변경해야 함.
+//    public RedirectView kakaoAuthorizeCode() throws Exception {
+//        return userService.getKakaoAuthorizeCode();
+//    }
 
     @GetMapping("/users/kakao-login")
     public ResponseEntity<?> kakaoLogin(@RequestParam("code") String code) throws Exception {
