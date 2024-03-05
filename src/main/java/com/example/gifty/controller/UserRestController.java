@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
@@ -25,7 +26,7 @@ public class UserRestController {
 //        return userService.getKakaoAuthorizeCode();
 //    }
 
-    @GetMapping("/users/kakao-login")
+    @PostMapping("/users/kakao-login")
     public ResponseEntity<?> kakaoLogin(@RequestParam("code") String code) throws Exception {
         UserResponseDTO.KakaoLoginDTO responseDTO = userService.kakaoLogin(code);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTO));
