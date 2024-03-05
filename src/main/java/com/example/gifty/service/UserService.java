@@ -199,8 +199,9 @@ public class UserService {
     private UserResponseDTO.KakaoLoginDTO login(UserRequestDTO.KakaoLoginDTO requestDTO) {
         User user = userJPARepository.findByEmail(requestDTO.getEmail())
                 .orElseThrow(() -> new UserNotExistException(ErrorCode.USER_NOT_EXIST));
+        UserResponseDTO.TokenDTO tokenDTO = jwtTokenProvider.createToken(user);
 
-        return jwtTokenProvider.createToken(user);
+        return new UserResponseDTO.KakaoLoginDTO(tokenDTO, user);
     }
 
 
