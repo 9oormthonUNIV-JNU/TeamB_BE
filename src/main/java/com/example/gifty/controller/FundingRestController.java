@@ -31,4 +31,10 @@ public class FundingRestController {
 //        List<FundingResponseDTO.FundingDTO> responseDTOs = fundingService.findFudningList(page, userDetails);
 //        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTOs));
 //    }
+
+    @GetMapping("/fundings/{id}")
+    public ResponseEntity<?> getFunding(@PathVariable int id) {
+        FundingResponseDTO.FundingDetailDTO responseDTO = fundingService.findFunding(id);
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTO));
+    }
 }

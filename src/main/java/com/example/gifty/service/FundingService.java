@@ -6,6 +6,7 @@ import com.example.gifty.entity.Funding;
 import com.example.gifty.entity.Product;
 import com.example.gifty.entity.User;
 import com.example.gifty.exception.ErrorCode;
+import com.example.gifty.exception.FundingNotExistException;
 import com.example.gifty.exception.ProductNotExistException;
 import com.example.gifty.exception.UserNotExistException;
 import com.example.gifty.repository.FundingJPARepository;
@@ -52,4 +53,11 @@ public class FundingService {
 //                .orElseThrow(() -> new UserNotExistException(ErrorCode.USER_NOT_EXIST));
 //
 //    }
+
+    public FundingResponseDTO.FundingDetailDTO findFunding(int id) {
+        Funding funding = fundingJPARepository.findById(id)
+                .orElseThrow(() -> new FundingNotExistException(ErrorCode.FUNDING_NOT_EXIST));
+
+        return new FundingResponseDTO.FundingDetailDTO(funding);
+    }
 }
