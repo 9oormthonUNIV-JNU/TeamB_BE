@@ -29,4 +29,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleUserNotExistException(FundingNotExistException e) {
         return ResponseEntity.status(e.getErrorCode().getHttpStatus()).body(ApiResponse.error(e.getMessage()));
     }
+
+    @ExceptionHandler(WishListNotExistException.class)
+    public ResponseEntity<?> handleUserNotExistException(WishListNotExistException e) {
+        return ResponseEntity.status(e.getErrorCode().getHttpStatus()).body(ApiResponse.error(e.getMessage()));
+    }
 }
