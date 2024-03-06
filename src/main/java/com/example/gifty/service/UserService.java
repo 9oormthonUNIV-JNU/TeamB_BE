@@ -58,6 +58,8 @@ public class UserService {
 
     private final JWTTokenProvider jwtTokenProvider;
 
+    private HashMap<String, String> tokenInfo;
+
 //    public RedirectView getKakaoAuthorizeCode() throws Exception {
 ////        URI uri = UriComponentsBuilder
 ////                .fromUriString("https://kauth.kakao.com")
@@ -78,8 +80,8 @@ public class UserService {
 //    }
 
     public UserResponseDTO.KakaoLoginDTO kakaoLogin(String code) throws Exception {
-        HashMap<String, String> tokenInfo = getKakaoToken(code);
-        UserRequestDTO.KakaoLoginDTO kakaoUserDTO = getKakaoUser(tokenInfo);
+        tokenInfo = getKakaoToken(code);
+        UserRequestDTO.KakaoLoginDTO kakaoUserDTO = getKakaoUser();
         Optional<User> user = userJPARepository.findByEmail(kakaoUserDTO.getEmail());
 
         if (user.isEmpty()) {
@@ -87,8 +89,6 @@ public class UserService {
         }
 
         UserResponseDTO.KakaoLoginDTO responseDTO = login(kakaoUserDTO);
-
-//        getUserFriendList(kakaoUserDTO, tokenInfo);
 
         return responseDTO;
     }
@@ -147,7 +147,7 @@ public class UserService {
         return tokenInfo;
     }
 
-    private UserRequestDTO.KakaoLoginDTO getKakaoUser(HashMap<String, String> tokenInfo) {
+    private UserRequestDTO.KakaoLoginDTO getKakaoUser() {
         UserRequestDTO.KakaoLoginDTO kakaoUser = new UserRequestDTO.KakaoLoginDTO();
 
         String requestURL = userInfoUri;
@@ -205,9 +205,7 @@ public class UserService {
     }
 
 
-    private List<Friend> getUserFriendList(UserRequestDTO.KakaoLoginDTO requestDTO, HashMap<String, String> tokenInfo) {
-        User user = userJPARepository.findByEmail(requestDTO.getEmail())
-                .orElseThrow(() -> new UserNotExistException(ErrorCode.USER_NOT_EXIST));
+    public List<Friend> getUserFriendList(User user) {
         List<Friend> friendList = new ArrayList<>();
 
         String requestURL = userFriendListUri;
