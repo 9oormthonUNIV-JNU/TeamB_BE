@@ -25,12 +25,12 @@ public class UserResponseDTO {
     @Getter
     @Setter
     public static class KakaoLoginDTO {
-        private TokenDTO tokenDTO;
-        private UserDTO userDTO;
+        private TokenDTO tokenInfo;
+        private UserDTO userInfo;
 
-        public KakaoLoginDTO(TokenDTO tokenDTO, User user) {
-            this.tokenDTO = tokenDTO;
-            this.userDTO = new UserDTO(user);
+        public KakaoLoginDTO(TokenDTO tokenInfo, User user) {
+            this.tokenInfo = tokenInfo;
+            this.userInfo = new UserDTO(user);
         }
 
         @Getter
