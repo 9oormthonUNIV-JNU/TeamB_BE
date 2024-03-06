@@ -21,7 +21,7 @@ public class Friend extends BaseTimeEntity {
     private User user;
 
     @Column
-    private long kakaoId;
+    private Long kakaoId;
 
     @Column
     private String kakaoUuid;
@@ -33,7 +33,7 @@ public class Friend extends BaseTimeEntity {
     private String profileImage;
 
     @Builder
-    public Friend(User user, long kakaoId, String kakaoUuid, String nickname, String profileImage) {
+    public Friend(User user, Long kakaoId, String kakaoUuid, String nickname, String profileImage) {
         this.user = user;
         this.kakaoId = kakaoId;
         this.kakaoUuid = kakaoUuid;

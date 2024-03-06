@@ -2,13 +2,17 @@ package com.example.gifty.controller;
 
 import com.example.gifty.ApiResponse;
 import com.example.gifty.dto.product.ProductResponseDTO;
+import com.example.gifty.dto.wishlist.WishListRequestDTO;
+import com.example.gifty.dto.wishlist.WishListResponseDTO;
 import com.example.gifty.security.CustomUserDetails;
 import com.example.gifty.service.ProductService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,5 +33,17 @@ public class ProductRestController {
     public ResponseEntity<?> getProduct(@PathVariable int id) {
         ProductResponseDTO.ProductDetailDTO responseDTO = productService.findProduct(id);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTO));
+    }
+
+    @GetMapping("/products/{id}/wishlists")
+    public ResponseEntity<?> getProductWishList(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        WishListResponseDTO.ProductWishListDTO responseDTO = productService.findProductWishList(id, userDetails);
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTO));
+    }
+
+    @PostMapping("/products/{id}/wishlists")
+    public ResponseEntity<?> postWishList(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetails) throws Exception {
+        productService.createWishList(id, userDetails);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.successWithNoContent());
     }
 }

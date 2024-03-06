@@ -33,4 +33,8 @@ public class WishList extends BaseTimeEntity {
         this.product = product;
         this.isDeleted = isDeleted;
     }
+
+    public void updateIsDeleted() {
+        this.isDeleted = !this.isDeleted;
+    }
 }
