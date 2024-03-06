@@ -35,6 +35,10 @@ public class Funding extends BaseTimeEntity {
     @Column
     private LocalDateTime endDate;
 
+    @Enumerated(EnumType.STRING)
+    @Column
+    private State state;
+
     @Column
     private String message;
 
@@ -42,12 +46,13 @@ public class Funding extends BaseTimeEntity {
     private long totalAmount;
 
     @Builder
-    public Funding(User user, Product product, Event event, LocalDateTime startDate, LocalDateTime endDate, String message, long totalAmount) {
+    public Funding(User user, Product product, Event event, LocalDateTime startDate, LocalDateTime endDate, State state, String message, long totalAmount) {
         this.user = user;
         this.product = product;
         this.event = event;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.state = state;
         this.message = message;
         this.totalAmount = totalAmount;
     }

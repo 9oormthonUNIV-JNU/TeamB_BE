@@ -17,7 +17,7 @@ public class User extends BaseTimeEntity {
     private int id;
 
     @Column
-    private long kakaoId;
+    private Long kakaoId;
 
     @Column
     private String email;
@@ -29,7 +29,7 @@ public class User extends BaseTimeEntity {
     private String profileImage;
 
     @Builder
-    public User(long kakaoId, String email, String nickname, String profileImage) {
+    public User(Long kakaoId, String email, String nickname, String profileImage) {
         this.kakaoId = kakaoId;
         this.email = email;
         this.nickanme = nickname;
