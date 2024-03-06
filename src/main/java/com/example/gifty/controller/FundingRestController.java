@@ -26,15 +26,15 @@ public class FundingRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.successWithNoContent());
     }
 
-//    @GetMapping("/fundings")
-//    public ResponseEntity<?> getFundingList(@RequestParam(value = "page", defaultValue = "0") Integer page, @AuthenticationPrincipal CustomUserDetails userDetails) {
-//        List<FundingResponseDTO.FundingDTO> responseDTOs = fundingService.findFudningList(page, userDetails);
-//        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTOs));
-//    }
+    @GetMapping("/fundings")
+    public ResponseEntity<?> getFriendFundingList(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        List<FundingResponseDTO.FundingDTO> responseDTOs = fundingService.findFriendFundingList(userDetails);
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTOs));
+    }
 
     @GetMapping("/fundings/{id}")
-    public ResponseEntity<?> getFunding(@PathVariable int id) {
-        FundingResponseDTO.FundingDetailDTO responseDTO = fundingService.findFunding(id);
+    public ResponseEntity<?> getFriendFunding(@PathVariable int id) {
+        FundingResponseDTO.FundingDetailDTO responseDTO = fundingService.findFriendFunding(id);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTO));
     }
 }
