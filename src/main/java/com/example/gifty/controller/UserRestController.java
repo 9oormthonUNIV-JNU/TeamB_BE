@@ -2,12 +2,14 @@ package com.example.gifty.controller;
 
 import com.example.gifty.ApiResponse;
 import com.example.gifty.dto.user.UserResponseDTO;
+import com.example.gifty.security.CustomUserDetails;
 import com.example.gifty.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,4 +34,9 @@ public class UserRestController {
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTO));
     }
 
+    @GetMapping("/users/mypage")
+    public ResponseEntity<?> getMyPage(@AuthenticationPrincipal CustomUserDetails userDetails) throws Exception {
+        UserResponseDTO.MyPageDTO responseDTO = userService.findMyPage(userDetails);
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTO));
+    }
 }
