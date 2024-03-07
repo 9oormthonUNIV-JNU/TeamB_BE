@@ -20,7 +20,7 @@ import java.util.List;
 public class WishListRestController {
     private final WishListService wishListService;
 
-    @GetMapping("/wishlists")
+    @GetMapping("/users/wishlists")
     public ResponseEntity<?> getProductWishList(@RequestParam(value = "page", defaultValue = "0") Integer page, @AuthenticationPrincipal CustomUserDetails userDetails) {
         List<WishListResponseDTO.WishListDTO> responseDTOs = wishListService.findWishList(page, userDetails);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTOs));

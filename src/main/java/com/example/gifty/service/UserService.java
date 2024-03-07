@@ -1,6 +1,11 @@
 package com.example.gifty.service;
 
 import com.example.gifty.entity.Friend;
+import com.example.gifty.entity.Funding;
+import com.example.gifty.entity.State;
+import com.example.gifty.exception.FundingNotExistException;
+import com.example.gifty.repository.FundingJPARepository;
+import com.example.gifty.security.CustomUserDetails;
 import com.example.gifty.security.JWTTokenProvider;
 import com.example.gifty.dto.user.UserRequestDTO;
 import com.example.gifty.dto.user.UserResponseDTO;
@@ -31,6 +36,7 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserJPARepository userJPARepository;
+    private final FundingJPARepository fundingJPARepository;
 
     @Value("${kakao.rest-api-key}")
     private String kakaoRestApiKey;
@@ -253,5 +259,11 @@ public class UserService {
             e.printStackTrace();
         }
         return friendList;
+    }
+
+    public UserResponseDTO.MyPageDTO findMyPage(CustomUserDetails userDetails) {
+        Funding funding = fundingJPARepository.findByUserAndState(userDetails.getUser().getId(), State.Ongoing)
+                .orElseThrow(() -> new FundingNotExistException(ErrorCode.FUNDING_NOT_EXIST));
+        return new UserResponseDTO.MyPageDTO(userDetails.getUser(), funding);
     }
 }

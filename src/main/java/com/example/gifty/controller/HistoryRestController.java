@@ -18,7 +18,7 @@ import java.util.List;
 public class HistoryRestController {
     private final HistoryService historyService;
 
-    @GetMapping("/histories")
+    @GetMapping("/users/histories")
     public ResponseEntity<?> getHistory(@RequestParam(value = "page", defaultValue = "0") Integer page, CustomUserDetails userDetails) throws Exception {
         List<HistoryResponseDTO.HistoryDTO> responseDTOs = historyService.findHistory(page, userDetails);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTOs));
