@@ -14,4 +14,20 @@ public class WishListResponseDTO {
             this.isDeleted = wishList.isDeleted();
         }
     }
+
+    @Getter
+    @Setter
+    public static class WishListDTO {
+        private int productId;
+        private String productName;
+        private String productImage;
+        private int productPrice;
+
+        public WishListDTO(WishList wishList) {
+            this.productId = wishList.getProduct().getId();
+            this.productName = wishList.getProduct().getProductName();
+            this.productImage = wishList.getProduct().getProductImage();
+            this.productPrice = wishList.getProduct().getPrice();
+        }
+    }
 }
