@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +31,8 @@ public class ProductRestController {
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<?> getProduct(@PathVariable int id) {
-        ProductResponseDTO.ProductDetailDTO responseDTO = productService.findProduct(id);
+    public ResponseEntity<?> getProduct(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        ProductResponseDTO.ProductDetailDTO responseDTO = productService.findProduct(id, userDetails);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTO));
     }
 
@@ -42,8 +43,14 @@ public class ProductRestController {
     }
 
     @PostMapping("/products/{id}/wishlists")
-    public ResponseEntity<?> postWishList(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetails) throws Exception {
-        productService.createWishList(id, userDetails);
+    public ResponseEntity<?> postProductWishList(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetails) throws Exception {
+        productService.createProductWishList(id, userDetails);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.successWithNoContent());
+    }
+
+    @PutMapping("/products/{id}/wishlists")
+    public ResponseEntity<?> putProductWishList(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetails) throws Exception {
+        productService.updateProductWishList(id, userDetails);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.successWithNoContent());
     }
 }
