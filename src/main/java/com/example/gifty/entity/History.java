@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -27,6 +29,10 @@ public class History extends BaseTimeEntity {
     @Builder
     public History(User user, Product product) {
         this.user = user;
+        this.product = product;
+    }
+
+    public void updateModifiedDate(Product product) {
         this.product = product;
     }
 }
