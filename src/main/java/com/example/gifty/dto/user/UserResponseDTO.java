@@ -1,5 +1,6 @@
 package com.example.gifty.dto.user;
 
+import com.example.gifty.entity.Funding;
 import com.example.gifty.entity.User;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -47,6 +48,30 @@ public class UserResponseDTO {
                 this.nickname = user.getNickanme();
                 this.profileImage = user.getProfileImage();
             }
+        }
+    }
+
+    @Getter
+    @Setter
+    public static class MyPageDTO {
+        private int userId;
+        private String nickname;
+        private String profileImage;
+        private int fundingId;
+        private String productName;
+        private String productImage;
+        private int productPrice;
+        private long progress;
+
+        public MyPageDTO(User user, Funding funding) {
+            this.userId = user.getId();
+            this.nickname = user.getNickanme();
+            this.profileImage = user.getProfileImage();
+            this.fundingId = funding.getId();
+            this.productName = funding.getProduct().getProductName();
+            this.productImage = funding.getProduct().getProductImage();
+            this.productPrice = funding.getProduct().getPrice();
+            this.progress = funding.getTotalAmount() / funding.getProduct().getPrice();
         }
     }
 }
