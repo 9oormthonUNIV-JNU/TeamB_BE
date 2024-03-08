@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum State {
-    ONGOING("Ongoing"),
-    COMPLETE("Complete");
+    Ongoing("Ongoing"),
+    Ccmplete("Complete");
 
     private final String state;
 }
