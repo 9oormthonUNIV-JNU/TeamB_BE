@@ -3,6 +3,7 @@ package com.example.gifty.controller;
 import com.example.gifty.ApiResponse;
 import com.example.gifty.dto.user.UserResponseDTO;
 import com.example.gifty.security.CustomUserDetails;
+import com.example.gifty.security.JWTTokenProvider;
 import com.example.gifty.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,6 +33,11 @@ public class UserRestController {
     public ResponseEntity<?> kakaoLogin(@RequestParam("code") String code) throws Exception {
         UserResponseDTO.KakaoLoginDTO responseDTO = userService.kakaoLogin(code);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTO));
+    }
+
+    @PostMapping("/users/validation")
+    public ResponseEntity<?> validateJWTToken() {
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.successWithNoContent());
     }
 
     @GetMapping("/users/mypage")
