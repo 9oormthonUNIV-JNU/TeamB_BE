@@ -1,6 +1,7 @@
 package com.example.gifty.dto.funding;
 
 import com.example.gifty.entity.Event;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,9 +19,11 @@ public class FundingRequestDTO {
         private Event event;
 
         @NotEmpty
+        @JsonFormat(pattern = "yyyy-MM--dd")
         private LocalDateTime startDate;
 
         @NotEmpty
+        @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDateTime endDate;
 
         private String message;
