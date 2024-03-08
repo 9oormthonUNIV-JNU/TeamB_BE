@@ -65,12 +65,6 @@ public class ProductService {
         return new ProductResponseDTO.ProductDetailDTO(product);
     }
 
-    public WishListResponseDTO.ProductWishListDTO findProductWishList(int id, CustomUserDetails userDetails) {
-        WishList wishList = wishListJPARepository.findByUserAndProduct(userDetails.getUser().getId(), id)
-                .orElseThrow(() -> new WishListNotExistException(ErrorCode.WISHLIST_NOT_EXIST));
-        return new WishListResponseDTO.ProductWishListDTO(wishList);
-    }
-
     public void createProductWishList(int id, CustomUserDetails userDetails) {
         User user = userJPARepository.findById(userDetails.getUser().getId())
                 .orElseThrow(() -> new UserNotExistException(ErrorCode.USER_NOT_EXIST));
@@ -80,14 +74,16 @@ public class ProductService {
         WishList newWishList = WishList.builder()
                 .user(user)
                 .product(product)
-                .isDeleted(false)
                 .build();
         wishListJPARepository.save(newWishList);
     }
 
-    public void updateProductWishList(int id, CustomUserDetails userDetails) {
+    public void findProductWishList(int id, CustomUserDetails userDetails) {
         WishList wishList = wishListJPARepository.findByUserAndProduct(userDetails.getUser().getId(), id)
                 .orElseThrow(() -> new WishListNotExistException(ErrorCode.WISHLIST_NOT_EXIST));
-        wishList.updateIsDeleted();
+    }
+
+    public void deleteProductWishList(int id, CustomUserDetails userDetails) {
+        wishListJPARepository.deleteByUserAndProduct(userDetails.getUser().getId(), id);
     }
 }
