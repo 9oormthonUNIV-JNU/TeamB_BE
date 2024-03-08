@@ -49,4 +49,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleUserNotExistException(WrongAmountException e) {
         return ResponseEntity.status(e.getErrorCode().getHttpStatus()).body(ApiResponse.error(e.getMessage()));
     }
+
+    @ExceptionHandler(NotificationNotExistException.class)
+    public ResponseEntity<?> handleUserNotExistException(NotificationNotExistException e) {
+        return ResponseEntity.status(e.getErrorCode().getHttpStatus()).body(ApiResponse.error(e.getMessage()));
+    }
 }

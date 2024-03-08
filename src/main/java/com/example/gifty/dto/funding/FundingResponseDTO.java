@@ -4,6 +4,7 @@ import com.example.gifty.entity.Event;
 import com.example.gifty.entity.Friend;
 import com.example.gifty.entity.Funding;
 import com.example.gifty.entity.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -58,7 +59,9 @@ public class FundingResponseDTO {
         private int productId;
         private String productName;
         private String productImage;
+        @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDateTime startDate;
+        @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDateTime endDate;
         private String message;
         private long totalAmount;

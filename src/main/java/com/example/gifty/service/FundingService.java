@@ -51,7 +51,7 @@ public class FundingService {
                 .event(requestDTO.getEvent())
                 .startDate(requestDTO.getStartDate())
                 .endDate(requestDTO.getEndDate())
-                .state(State.Ongoing)
+                .state(State.ONGOING)
                 .message(requestDTO.getMessage())
                 .totalAmount(0)
                 .build();
@@ -84,7 +84,7 @@ public class FundingService {
             if (friendAndUser.isEmpty()) {
                 responseDTO = new FundingResponseDTO.FundingDTO(friend);
             } else {
-                Optional<Funding> funding = fundingJPARepository.findByUserAndState(friendAndUser.get().getId(), State.Ongoing);
+                Optional<Funding> funding = fundingJPARepository.findByUserAndState(friendAndUser.get().getId(), State.ONGOING);
                 responseDTO = funding
                         .map(f -> new FundingResponseDTO.FundingDTO(friend, f))
                         .orElseGet(() -> new FundingResponseDTO.FundingDTO(friend));

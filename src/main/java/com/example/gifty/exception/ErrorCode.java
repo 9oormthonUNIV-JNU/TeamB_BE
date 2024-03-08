@@ -25,7 +25,8 @@ public enum ErrorCode {
     USER_NOT_EXIST(HttpStatus.NOT_FOUND, "존재하지 않는 사용자입니다."),
     PRODUCT_NOT_EXIST(HttpStatus.NOT_FOUND, "존재하지 않는 상품입니다."),
     FUNDING_NOT_EXIST(HttpStatus.NOT_FOUND, "존재하지 않는 펀딩입니다."),
-    WISHLIST_NOT_EXIST(HttpStatus.NOT_FOUND, "존재하지 않는 위시리스트입니다.");
+    WISHLIST_NOT_EXIST(HttpStatus.NOT_FOUND, "존재하지 않는 위시리스트입니다."),
+    NOTIFICATION_NOT_EXIST(HttpStatus.NOT_FOUND, "존재하지 않는 알림입니다.");
 
     // 409 Conflict 충돌
 

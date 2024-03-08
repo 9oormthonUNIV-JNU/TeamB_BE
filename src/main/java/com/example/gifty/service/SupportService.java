@@ -137,10 +137,10 @@ public class SupportService {
 
         Support support = supportJPARepository.save(newSupport);
 
-        funding.updateTotalAmount(requestDTO.getAmount());
+        Funding updatedFunding = funding.updateTotalAmount(requestDTO.getAmount());
 
         Funding_Support new_funding_support = Funding_Support.builder()
-                .funding(funding)
+                .funding(updatedFunding)
                 .support(support)
                 .build();
 
@@ -148,9 +148,17 @@ public class SupportService {
 
         Notification newNotification = Notification.builder()
                 .fundingSupport(funding_support)
-                .isRead(false)
+                .isComplete(false)
                 .build();
 
         notificationJPARepository.save(newNotification);
+
+        if (updatedFunding.getTotalAmount() == updatedFunding.getProduct().getPrice()) {
+            Notification fundingCompleteNotification = Notification.builder()
+                    .fundingSupport(new_funding_support)
+                    .isComplete(true)
+                    .build();
+            notificationJPARepository.save(fundingCompleteNotification);
+        }
     }
 }
