@@ -47,6 +47,8 @@ public class UserService {
 
     @Value("${kakao.authorize-uri}")
     private String authorizeUri;
+
+    @Value("${kakao.redirect-uri}")
     private String redirectUri;
 
     @Value("${kakao.authorize-scope}")
@@ -101,7 +103,7 @@ public class UserService {
     private HashMap<String, String> getKakaoToken(String code, HttpServletRequest request) {
         HashMap<String, String> tokenInfo = new HashMap<String, String>();
 
-        redirectUri = getClientIp(request) + "/auth";
+//        redirectUri = getClientIp(request) + "/auth";
 
         String requestURL = tokenUri;
 
