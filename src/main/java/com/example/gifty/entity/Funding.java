@@ -35,6 +35,7 @@ public class Funding extends BaseTimeEntity {
     @Column
     private LocalDateTime endDate;
 
+    @Column
     @Enumerated(EnumType.STRING)
     private State state;
 
