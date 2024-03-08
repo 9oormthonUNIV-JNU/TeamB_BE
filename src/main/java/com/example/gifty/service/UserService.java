@@ -295,7 +295,7 @@ public class UserService {
     }
 
     public UserResponseDTO.MyPageDTO findMyPage(CustomUserDetails userDetails) {
-        Funding funding = fundingJPARepository.findByUserAndState(userDetails.getUser().getId(), State.Ongoing)
+        Funding funding = fundingJPARepository.findByUserAndState(userDetails.getUser().getId(), State.ONGOING)
                 .orElseThrow(() -> new FundingNotExistException(ErrorCode.FUNDING_NOT_EXIST));
         return new UserResponseDTO.MyPageDTO(userDetails.getUser(), funding);
     }
