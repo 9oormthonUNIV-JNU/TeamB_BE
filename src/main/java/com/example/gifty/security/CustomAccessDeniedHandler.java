@@ -1,5 +1,6 @@
 package com.example.gifty.security;
 
+import com.example.gifty.ApiResponse;
 import com.example.gifty.exception.ErrorCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -23,7 +24,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("UTF-8");
         response.setStatus(ErrorCode.UNAUTHORIZED_USER.getHttpStatus().value());
-        String responseBody = objectMapper.writeValueAsString(ErrorCode.UNAUTHORIZED_USER.getMessage());
+        String responseBody = objectMapper.writeValueAsString(ApiResponse.error(ErrorCode.UNAUTHORIZED_USER.getMessage()));
         response.getWriter().println(responseBody);
     }
 }

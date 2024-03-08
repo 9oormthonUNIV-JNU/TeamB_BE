@@ -51,8 +51,6 @@ public class JWTTokenProvider {
         Claims claims = Jwts.claims();
         claims.put("id", user.getId());
         claims.put("email", user.getEmail());
-        claims.put("nickname", user.getNickanme());
-        claims.put("profileImage", user.getProfileImage());
         return claims;
     }
 

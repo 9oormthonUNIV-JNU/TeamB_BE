@@ -47,7 +47,7 @@ public class SecurityConfig {
                         .accessDeniedHandler(customAccessDeniedHandler))
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/users/login").permitAll()
-                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/users/validation").authenticated()
                         .anyRequest().permitAll());
         return http.build();
     }

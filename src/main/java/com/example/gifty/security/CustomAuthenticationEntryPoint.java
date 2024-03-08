@@ -1,11 +1,13 @@
 package com.example.gifty.security;
 
+import com.example.gifty.ApiResponse;
 import com.example.gifty.exception.ErrorCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -25,7 +27,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("UTF-8");
         response.setStatus(ErrorCode.FORBIDDEN_USER.getHttpStatus().value());
-        String responseBody = objectMapper.writeValueAsString(ErrorCode.FORBIDDEN_USER.getMessage());
+        String responseBody = objectMapper.writeValueAsString(ApiResponse.error(ErrorCode.FORBIDDEN_USER.getMessage()));
         response.getWriter().println(responseBody);
     }
 }
