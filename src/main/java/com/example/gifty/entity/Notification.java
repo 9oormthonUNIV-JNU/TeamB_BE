@@ -21,15 +21,11 @@ public class Notification extends BaseTimeEntity {
     private Funding_Support fundingSupport;
 
     @Column
-    private String content;
-
-    @Column
     private boolean isRead;
 
     @Builder
-    public Notification(Funding_Support fundingSupport, String content, boolean isRead) {
+    public Notification(Funding_Support fundingSupport, boolean isRead) {
         this.fundingSupport = fundingSupport;
-        this.content = content;
         this.isRead = isRead;
     }
 

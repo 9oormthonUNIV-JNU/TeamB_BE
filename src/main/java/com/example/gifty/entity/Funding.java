@@ -56,4 +56,8 @@ public class Funding extends BaseTimeEntity {
         this.message = message;
         this.totalAmount = totalAmount;
     }
+
+    public void updateTotalAmount(long amount) {
+        this.totalAmount += amount;
+    }
 }

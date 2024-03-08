@@ -34,4 +34,19 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleUserNotExistException(WishListNotExistException e) {
         return ResponseEntity.status(e.getErrorCode().getHttpStatus()).body(ApiResponse.error(e.getMessage()));
     }
+
+    @ExceptionHandler(KakaopayCancelException.class)
+    public ResponseEntity<?> handleUserNotExistException(KakaopayCancelException e) {
+        return ResponseEntity.status(e.getErrorCode().getHttpStatus()).body(ApiResponse.error(e.getMessage()));
+    }
+
+    @ExceptionHandler(KakaopayFailException.class)
+    public ResponseEntity<?> handleUserNotExistException(KakaopayFailException e) {
+        return ResponseEntity.status(e.getErrorCode().getHttpStatus()).body(ApiResponse.error(e.getMessage()));
+    }
+
+    @ExceptionHandler(WrongAmountException.class)
+    public ResponseEntity<?> handleUserNotExistException(WrongAmountException e) {
+        return ResponseEntity.status(e.getErrorCode().getHttpStatus()).body(ApiResponse.error(e.getMessage()));
+    }
 }

@@ -11,6 +11,9 @@ public enum ErrorCode {
     INVALID_JWT_TOKEN(HttpStatus.BAD_REQUEST, "유효하지 않은 JWT 토큰입니다."),
     EXPIRED_JWT_TOKEN(HttpStatus.BAD_REQUEST, "만료된 JWT 토큰입니다."),
     UNSUPPORTED_JWT_TOKEN(HttpStatus.BAD_REQUEST, "지원하지 않는 JWT 토큰입니다."),
+    KAKAOPAY_CANCEL(HttpStatus.BAD_REQUEST, "카카오페이 결제가 취소되었습니다."),
+    KAKAOPAY_FAIL(HttpStatus.BAD_REQUEST, "카카오페이 결제가 실패했습니다."),
+    WRONG_AMOUNT(HttpStatus.BAD_REQUEST, "잘못된 금액입니다."),
 
     // 401 Unauthorized 권한 없음
     UNAUTHORIZED_USER(HttpStatus.UNAUTHORIZED, "권한이 없는 사용자입니다"),
