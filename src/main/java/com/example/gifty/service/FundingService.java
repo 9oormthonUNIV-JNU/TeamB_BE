@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -65,7 +66,7 @@ public class FundingService {
         List<Friend> currentFriendList = userService.getUserFriendList(currentUser);
         List<Friend> savedFriendList = friendJPARepository.findAllByUser(currentUser.getId());
         List<Friend> notSavedFriendList = currentFriendList.stream()
-                .filter(friend -> savedFriendList.stream().noneMatch(Predicate.isEqual(friend)))
+                .filter(currentFriend -> savedFriendList.stream().noneMatch(savedFrient -> Objects.equals(savedFrient.getKakaoId(), currentFriend.getKakaoId())))
                 .toList();
 
         friendJPARepository.saveAll(notSavedFriendList);
