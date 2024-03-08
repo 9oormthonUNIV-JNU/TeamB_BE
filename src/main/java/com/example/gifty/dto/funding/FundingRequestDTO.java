@@ -19,7 +19,7 @@ public class FundingRequestDTO {
         private Event event;
 
         @NotEmpty
-        @JsonFormat(pattern = "yyyy-MM--dd")
+        @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDateTime startDate;
 
         @NotEmpty
