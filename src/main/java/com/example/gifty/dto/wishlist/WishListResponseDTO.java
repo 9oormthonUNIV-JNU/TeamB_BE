@@ -7,16 +7,6 @@ import lombok.Setter;
 public class WishListResponseDTO {
     @Getter
     @Setter
-    public static class ProductWishListDTO {
-        private boolean isDeleted;
-
-        public ProductWishListDTO(WishList wishList) {
-            this.isDeleted = wishList.isDeleted();
-        }
-    }
-
-    @Getter
-    @Setter
     public static class WishListDTO {
         private int productId;
         private String productName;
