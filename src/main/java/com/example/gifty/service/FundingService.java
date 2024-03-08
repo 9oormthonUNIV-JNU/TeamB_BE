@@ -77,7 +77,8 @@ public class FundingService {
 //                .filter(user -> currentFriendList.stream().anyMatch(friend -> user.getKakaoId() == friend.getKakaoId()))
 //                .toList();
 
-        for (Friend friend: currentFriendList) {
+        List<Friend> friendList = friendJPARepository.findAllByUser(currentUser.getId());
+        for (Friend friend: friendList) {
             FundingResponseDTO.FundingDTO responseDTO;
             Optional<User> friendAndUser = userJPARepository.findByKakaoId(friend.getKakaoId());
             if (friendAndUser.isEmpty()) {

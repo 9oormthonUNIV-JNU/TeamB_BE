@@ -17,6 +17,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -46,8 +47,6 @@ public class UserService {
 
     @Value("${kakao.authorize-uri}")
     private String authorizeUri;
-
-    @Value("${kakao.redirect-uri}")
     private String redirectUri;
 
     @Value("${kakao.authorize-scope}")
@@ -85,8 +84,8 @@ public class UserService {
 //        return new RedirectView(uri);
 //    }
 
-    public UserResponseDTO.KakaoLoginDTO kakaoLogin(String code) throws Exception {
-        tokenInfo = getKakaoToken(code);
+    public UserResponseDTO.KakaoLoginDTO kakaoLogin(String code, HttpServletRequest request) throws Exception {
+        tokenInfo = getKakaoToken(code, request);
         UserRequestDTO.KakaoLoginDTO kakaoUserDTO = getKakaoUser();
         Optional<User> user = userJPARepository.findByEmail(kakaoUserDTO.getEmail());
 
@@ -99,8 +98,10 @@ public class UserService {
         return responseDTO;
     }
 
-    private HashMap<String, String> getKakaoToken(String code) {
+    private HashMap<String, String> getKakaoToken(String code, HttpServletRequest request) {
         HashMap<String, String> tokenInfo = new HashMap<String, String>();
+
+        redirectUri = getClientIp(request) + "/auth";
 
         String requestURL = tokenUri;
 
@@ -151,6 +152,36 @@ public class UserService {
             e.printStackTrace();
         }
         return tokenInfo;
+    }
+
+    private String getClientIp(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("X-Real-IP");
+        }
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("X-RealIP");
+        }
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("REMOTE_ADDR");
+        }
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
     }
 
     private UserRequestDTO.KakaoLoginDTO getKakaoUser() {
