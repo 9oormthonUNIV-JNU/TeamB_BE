@@ -36,21 +36,21 @@ public class ProductRestController {
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTO));
     }
 
-    @GetMapping("/products/{id}/wishlists")
-    public ResponseEntity<?> getProductWishList(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetails) {
-        WishListResponseDTO.ProductWishListDTO responseDTO = productService.findProductWishList(id, userDetails);
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTO));
-    }
-
     @PostMapping("/products/{id}/wishlists")
     public ResponseEntity<?> postProductWishList(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetails) throws Exception {
         productService.createProductWishList(id, userDetails);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.successWithNoContent());
     }
 
-    @PutMapping("/products/{id}/wishlists")
-    public ResponseEntity<?> putProductWishList(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetails) throws Exception {
-        productService.updateProductWishList(id, userDetails);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.successWithNoContent());
+    @GetMapping("/products/{id}/wishlists")
+    public ResponseEntity<?> getProductWishList(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        productService.findProductWishList(id, userDetails);
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.successWithNoContent());
+    }
+
+    @DeleteMapping("/products/{id}/wishlists")
+    public ResponseEntity<?> deleteProductWishList(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        productService.deleteProductWishList(id, userDetails);
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.successWithNoContent());
     }
 }

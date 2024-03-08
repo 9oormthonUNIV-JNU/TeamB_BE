@@ -7,6 +7,8 @@ import com.example.gifty.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 public class FundingResponseDTO {
     @Getter
     @Setter
@@ -56,6 +58,8 @@ public class FundingResponseDTO {
         private int productId;
         private String productName;
         private String productImage;
+        private LocalDateTime startDate;
+        private LocalDateTime endDate;
         private String message;
         private long totalAmount;
         private long productPrice;
@@ -69,6 +73,8 @@ public class FundingResponseDTO {
             this.productId = funding.getProduct().getId();
             this.productName = funding.getProduct().getProductName();
             this.productImage = funding.getProduct().getProductImage();
+            this.startDate = funding.getStartDate();
+            this.endDate = funding.getEndDate();
             this.message = funding.getMessage();
             this.totalAmount = funding.getTotalAmount();
             this.productPrice = funding.getProduct().getPrice();

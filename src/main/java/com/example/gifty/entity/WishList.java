@@ -24,17 +24,9 @@ public class WishList extends BaseTimeEntity {
     @JoinColumn(name = "productId")
     private Product product;
 
-    @Column
-    private boolean isDeleted;
-
     @Builder
-    public WishList(User user, Product product, boolean isDeleted) {
+    public WishList(User user, Product product) {
         this.user = user;
         this.product = product;
-        this.isDeleted = isDeleted;
-    }
-
-    public void updateIsDeleted() {
-        this.isDeleted = !this.isDeleted;
     }
 }
