@@ -7,6 +7,7 @@ import com.example.gifty.security.JWTTokenProvider;
 import com.example.gifty.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +31,8 @@ public class UserRestController {
 //    }
 
     @PostMapping("/users/kakao-login")
-    public ResponseEntity<?> kakaoLogin(@RequestParam("code") String code) throws Exception {
-        UserResponseDTO.KakaoLoginDTO responseDTO = userService.kakaoLogin(code);
+    public ResponseEntity<?> kakaoLogin(@RequestParam("code") String code, HttpServletRequest request) throws Exception {
+        UserResponseDTO.KakaoLoginDTO responseDTO = userService.kakaoLogin(code, request);
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(responseDTO));
     }
 
