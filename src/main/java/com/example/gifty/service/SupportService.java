@@ -49,7 +49,7 @@ public class SupportService {
     @Value("${kakao-pay.fail-uri}")
     private String failUri;
 
-    @Value("${kakao-pay.apporvement-uri}")
+    @Value("${kakao-pay.approvement-uri}")
     private String approvementUri;
 
     private SupportResponseDTO.KakaoPayReadyDTO kakaoPayReadyDTO;
